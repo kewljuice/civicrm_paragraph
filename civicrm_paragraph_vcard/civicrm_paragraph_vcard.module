@@ -1,0 +1,6 @@
+<?php
+
+/**
+ * Include listener.
+ */
+module_load_include('inc', 'civicrm_paragraph_vcard', 'includes/listener');

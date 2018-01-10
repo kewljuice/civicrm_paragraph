@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * Include install.
+ */
+module_load_include('inc', 'civicrm_paragraph', 'includes/install');
+
+/**
+ * Implement hook_install().
+ */
+function civicrm_paragraph_vcard_install() {
+  # Create our 'movie' paragraph bundle on install.
+  _civicrm_paragraph_bundle_install('civicrm_vcard', 'CiviCRM: vCard');
+}
+
+/**
+ * Implement hook_uninstall().
+ */
+function civicrm_paragraph_vcard_uninstall() {
+  # Delete our 'movie' paragraph bundle on uninstall.
+  _civicrm_paragraph_bundle_uninstall('civicrm_vcard');
+}
+
+/**
+ * Implement hook_enable().
+ */
+function civicrm_paragraph_vcard_enable() {
+  # Define settings.
+  $settings = [
+    1 => ['label' => t('Layout 1')],
+    2 => ['label' => t('Layout 2')],
+  ];
+  # Create variable.
+  _civicrm_paragraph_variable_create('civicrm_paragraph_vcard', $settings);
+  # Append 'settings' field.
+  $label = t('Settings');
+  $description = t('If selected, the <em>Setting(s)</em> will be applied to the paragraph.');
+  # Set instance.
+  _civicrm_paragraph_field_append('paragraphs_item', 'civicrm_paragraph_settings', 'civicrm_vcard', $label, $description, 'options_buttons');
+  # Append 'contact' field.
+  $label = t('Contact');
+  $description = t('Select the <em>Contact</em> that will be displayed.');
+  # Set instance.
+  _civicrm_paragraph_field_append('paragraphs_item', 'civicrm_paragraph_contact', 'civicrm_vcard', $label, $description, 'civicrm_contact_ref_autocomplete');
+}
+
+/**
+ * Implement hook_disable().
+ */
+function civicrm_paragraph_vcard_disable() {
+  # Call variable_delete function & remove settings.
+  _civicrm_paragraph_variable_delete('civicrm_paragraph_vcard');
+  # Remove field instance if one exists.
+  _civicrm_paragraph_field_detach('paragraphs_item', 'civicrm_paragraph_settings', 'civicrm_vcard');
+}

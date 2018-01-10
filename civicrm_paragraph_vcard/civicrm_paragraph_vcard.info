@@ -1,0 +1,6 @@
+name = CiviCRM Paragraphs VCard
+description = "Everything functionally related to CiviCRM 'VCard' paragraph"
+core = "7.x"
+package = "CiviCRM"
+
+dependencies[] = civicrm_paragraph
