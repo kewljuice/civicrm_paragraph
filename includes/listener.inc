@@ -25,7 +25,8 @@ function _civicrm_hello_render($output, $object) {
     # Display according to settings.
     $firstname = $contact['values'][0]['first_name'];
     $lastname = $contact['values'][0]['last_name'];
-    switch ($object['#entity']->civicrm_paragraph_settings['und'][0]['value']) {
+    $settings = field_get_items('paragraphs_item', $object['#entity'], 'civicrm_paragraph_settings');
+    switch ($settings[0]['value']) {
       case 2:
         $name = $lastname;
         break;
