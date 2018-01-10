@@ -107,7 +107,7 @@ function _civicrm_vcard_render_layout1($cid) {
     civicrm_initialize();
     $contact = civicrm_api3('Contact', 'getSingle', [
       'sequential' => 1,
-      'id' => 1,
+      'id' => $cid,
     ]);
   } catch (Exception $e) {
     watchdog('_civicrm_vcard_render_layout1', $e->getMessage());
@@ -145,7 +145,7 @@ function _civicrm_vcard_render_layout2($cid) {
     civicrm_initialize();
     $contact = civicrm_api3('Contact', 'getSingle', [
       'sequential' => 1,
-      'id' => 1,
+      'id' => $cid,
     ]);
   } catch (Exception $e) {
     watchdog('_civicrm_vcard_render_layout2', $e->getMessage());
