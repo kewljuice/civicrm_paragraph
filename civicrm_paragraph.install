@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * Include install.
+ */
+module_load_include('inc', 'civicrm_paragraph', 'includes/install');
+
+/**
+ * Implement hook_install().
+ */
+function civicrm_paragraph_install() {
+  # Create our 'hello' paragraph bundle on install
+  _civicrm_paragraph_bundle_install('civicrm_hello', 'CiviCRM: hello');
+  # Create settings field
+  _civicrm_paragraph_field_list_create('civicrm_paragraph_settings', t('Settings'));
+  # Create contact field
+  _civicrm_paragraph_field_contact_create('civicrm_paragraph_contact', t('Contact'));
+}
+
+/**
+ * Implement hook_uninstall().
+ */
+function civicrm_paragraph_uninstall() {
+  # Delete our 'hello' paragraph bundle on uninstall
+  _civicrm_paragraph_bundle_uninstall('civicrm_hello');
+  # Delete 'list' field
+  $machine = 'civicrm_paragraph_settings';
+  _civicrm_paragraph_field_delete($machine);
+  # Delete 'contact' field
+  $machine = 'civicrm_paragraph_contact';
+  _civicrm_paragraph_field_delete($machine);
+}
+
+/**
+ * Implement hook_enable().
+ */
+function civicrm_paragraph_enable() {
+  # Define settings.
+  $settings = [
+    1 => ['label' => t('Firstname')],
+    2 => ['label' => t('Lastname')],
+    3 => ['label' => t('Firstname, Lastname')],
+    4 => ['label' => t('Lastname, Firstname')],
+  ];
+  # Create variable.
+  _civicrm_paragraph_variable_create('civicrm_paragraph_hello', $settings);
+  # Append settings field.
+  $label = t('Settings');
+  $description = t('If selected, the <em>Setting(s)</em> will be applied to the paragraph.');
+  # Set instance.
+  _civicrm_paragraph_field_append('paragraphs_item', 'civicrm_paragraph_settings', 'civicrm_hello', $label, $description, 'options_buttons');
+}
+
+/**
+ * Implement hook_disable().
+ */
+function civicrm_paragraph_disable() {
+  # Call variable_delete function & remove settings.
+  _civicrm_paragraph_variable_delete('civicrm_paragraph_hello');
+  # Remove field instance if one exists.
+  _civicrm_paragraph_field_detach('paragraphs_item', 'civicrm_paragraph_settings', 'civicrm_hello');
+}

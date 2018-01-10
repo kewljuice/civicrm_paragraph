@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * Include router.
+ */
+module_load_include('inc', 'civicrm_paragraph', 'includes/router');
+
+/**
+ * Include listener.
+ */
+module_load_include('inc', 'civicrm_paragraph', 'includes/listener');
