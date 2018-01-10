@@ -17,10 +17,11 @@ function _civicrm_vcard_render($output, $object) {
   if ($contact[0]) {
     # Use contact_id set by field 'civicrm_paragraph_contact'.
     $cid = $contact[0]['contact_id'];
-  } else {
+  }
+  else {
     # Use logged in user as default.
     try {
-        civicrm_initialize();
+      civicrm_initialize();
       $user_contact = civicrm_api3('Contact', 'getSingle', [
         'sequential' => 1,
         'return' => ["contact_id"],
@@ -29,7 +30,7 @@ function _civicrm_vcard_render($output, $object) {
     } catch (Exception $e) {
       // watchdog('_civicrm_vcard_render', $e->getMessage());
     }
-    if($user_contact['contact_id']) {
+    if ($user_contact['contact_id']) {
       $cid = $user_contact['contact_id'];
     }
   }
@@ -103,6 +104,7 @@ function civicrm_paragraph_civicrm_vcard(&$element, &$form_state, &$context) {
 function _civicrm_vcard_render_layout1($cid) {
   # Fetch contact variables.
   try {
+    civicrm_initialize();
     $contact = civicrm_api3('Contact', 'getSingle', [
       'sequential' => 1,
       'id' => 1,
@@ -140,6 +142,7 @@ function _civicrm_vcard_render_layout1($cid) {
 function _civicrm_vcard_render_layout2($cid) {
   # Fetch contact variables.
   try {
+    civicrm_initialize();
     $contact = civicrm_api3('Contact', 'getSingle', [
       'sequential' => 1,
       'id' => 1,

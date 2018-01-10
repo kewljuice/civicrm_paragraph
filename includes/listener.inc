@@ -10,8 +10,8 @@
  */
 function _civicrm_hello_render($output, $object) {
   # Fetch properties from our user.
-  civicrm_initialize();
   try {
+    civicrm_initialize();
     $contact = civicrm_api3('Contact', 'get', [
       'sequential' => 1,
       'return' => ["first_name", "last_name"],
