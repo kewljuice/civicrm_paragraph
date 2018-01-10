@@ -63,13 +63,10 @@ function _civicrm_paragraph_field_list_create($field, $label) {
     'cardinality' => FIELD_CARDINALITY_UNLIMITED, # Allow multiple values!
   ];
   # Check if field exists, else create our field.
-  $field_instance = field_info_field($field);
-  if (empty($field_instance)) {
-    try {
-      field_create_field($field);
-    } catch (Exception $e) {
-      watchdog('_civicrm_paragraph_field_create', $e->getMessage());
-    }
+  try {
+    field_create_field($field);
+  } catch (Exception $e) {
+    watchdog('_civicrm_paragraph_field_list_create', $e->getMessage());
   }
 }
 
@@ -84,16 +81,13 @@ function _civicrm_paragraph_field_contact_create($field, $label) {
   $field = [
     'field_name' => $field,
     'label' => $label,
-    'type' => 'list_integer',
+    'type' => 'civicrm_contact_ref_contact',
   ];
   # Check if field exists, else create our field.
-  $field_instance = field_info_field($field);
-  if (empty($field_instance)) {
-    try {
-      field_create_field($field);
-    } catch (Exception $e) {
-      watchdog('_civicrm_paragraph_field_create', $e->getMessage());
-    }
+  try {
+    field_create_field($field);
+  } catch (Exception $e) {
+    watchdog('_civicrm_paragraph_field_contact_create', $e->getMessage());
   }
 }
 
@@ -105,6 +99,7 @@ function _civicrm_paragraph_field_contact_create($field, $label) {
  * @param $bundle
  * @param $label
  * @param $description
+ * @param $widget
  */
 function _civicrm_paragraph_field_append($entity, $field, $bundle, $label, $description, $widget) {
   $instance = [
