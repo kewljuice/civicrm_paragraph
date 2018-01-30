@@ -39,32 +39,12 @@ function _civicrm_vcard_render($output, $object) {
     $settings = field_get_items('paragraphs_item', $object['#entity'], 'civicrm_paragraph_settings');
     switch ($settings[0]['value']) {
       case 2:
-        # With Caching.
-        $layout2 = &drupal_static(__FUNCTION__);
-        if (!isset($layout2)) {
-          if ($cache = cache_get('civicrm_paragraph_vcard_layout2')) {
-            $layout2 = $cache->data;
-          }
-          else {
-            $layout2 = _civicrm_vcard_render_layout2($cid);
-            cache_set('civicrm_paragraph_vcard_layout2', $layout2, 'cache');
-          }
-        }
-        $output = $layout2;
+        # Render layout 2.
+        $output = _civicrm_vcard_render_layout2($cid);
         break;
       default:
-        # With Caching.
-        $layout1 = &drupal_static(__FUNCTION__);
-        if (!isset($layout1)) {
-          if ($cache = cache_get('civicrm_paragraph_vcard_layout1')) {
-            $layout1 = $cache->data;
-          }
-          else {
-            $layout1 = _civicrm_vcard_render_layout1($cid);
-            cache_set('civicrm_paragraph_vcard_layout1', $layout1, 'cache');
-          }
-        }
-        $output = $layout1;
+        # Render layout 1.
+        $output = _civicrm_vcard_render_layout1($cid);
         break;
     }
   }
@@ -130,6 +110,12 @@ function _civicrm_vcard_render_layout1($cid) {
       'class' => ['civicrm_paragraph_vcard_layout1'],
       'id' => 'civicrm-paragraph-vcard-layout1',
     ],
+    '#cache' => [
+      'keys' => ['civicrm_paragraph', 'cache', 'layout1', $cid],
+      'bin' => 'cache',
+      'expire' => time() + 60,
+      'granularity' => DRUPAL_CACHE_PER_PAGE | DRUPAL_CACHE_PER_ROLE,
+    ],
   ];
   return $output;
 }
@@ -169,6 +155,12 @@ function _civicrm_vcard_render_layout2($cid) {
     '#attributes' => [
       'class' => ['civicrm_paragraph_vcard_layout2'],
       'id' => 'civicrm-paragraph-vcard-layout2',
+    ],
+    '#cache' => [
+      'keys' => ['civicrm_paragraph', 'cache', 'layout2', $cid],
+      'bin' => 'cache',
+      'expire' => time() + 60,
+      'granularity' => DRUPAL_CACHE_PER_PAGE | DRUPAL_CACHE_PER_ROLE,
     ],
   ];
   return $output;
