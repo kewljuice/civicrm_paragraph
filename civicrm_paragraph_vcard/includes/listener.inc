@@ -92,23 +92,19 @@ function _civicrm_vcard_render_layout1($cid) {
   } catch (Exception $e) {
     watchdog('_civicrm_vcard_render_layout1', $e->getMessage());
   }
-  # Generate table.
-  $table = [
-    '#theme' => 'table',
-    '#rows' => [
-      [t('name'), $contact['first_name'] . " " . $contact['last_name']],
-      [t('email'), $contact['email']],
-      [t('type'), $contact['contact_type']],
-    ],
-  ];
   # Generate output.
   $output = [
     '#theme' => 'html_tag',
     '#tag' => 'div',
-    '#value' => drupal_render($table),
+    '#value' => theme('civicrm_paragraph_vcard_layout1', ['contact' => $contact]),
     '#attributes' => [
       'class' => ['civicrm_paragraph_vcard_layout1'],
       'id' => 'civicrm-paragraph-vcard-layout1',
+    ],
+    '#attached' => [
+      'css' => [
+        drupal_get_path('module', 'civicrm_paragraph_vcard') . '/css/civicrm_paragraph_vcard.css',
+      ],
     ],
     '#cache' => [
       'keys' => ['civicrm_paragraph', 'cache', 'layout1', $cid],
@@ -136,25 +132,19 @@ function _civicrm_vcard_render_layout2($cid) {
   } catch (Exception $e) {
     watchdog('_civicrm_vcard_render_layout2', $e->getMessage());
   }
-  # Generate table.
-  $table = [
-    '#theme' => 'table',
-    '#rows' => [
-      [t('type'), $contact['contact_type']],
-      [t('name'), $contact['first_name'] . " " . $contact['last_name']],
-      [t('email'), $contact['email']],
-      [t('street'), $contact['street_address']],
-      [t('city'), $contact['postal_code'] . " " . $contact['city']],
-    ],
-  ];
   # Generate output.
   $output = [
     '#theme' => 'html_tag',
     '#tag' => 'div',
-    '#value' => drupal_render($table),
+    '#value' => theme('civicrm_paragraph_vcard_layout2', ['contact' => $contact]),
     '#attributes' => [
       'class' => ['civicrm_paragraph_vcard_layout2'],
       'id' => 'civicrm-paragraph-vcard-layout2',
+    ],
+    '#attached' => [
+      'css' => [
+        drupal_get_path('module', 'civicrm_paragraph_vcard') . '/css/civicrm_paragraph_vcard.css',
+      ],
     ],
     '#cache' => [
       'keys' => ['civicrm_paragraph', 'cache', 'layout2', $cid],
