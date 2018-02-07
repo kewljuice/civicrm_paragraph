@@ -1,0 +1,6 @@
+name = CiviCRM Paragraphs Opt-in
+description = "Everything functionally related to CiviCRM 'Opt-in' paragraph"
+core = "7.x"
+package = "CiviCRM"
+
+dependencies[] = civicrm_paragraph
