@@ -3,7 +3,7 @@
 /**
  *  Form constructor for the paragraph opt-in form.
  */
-function civicrm_paragraph_optin_form($form, &$form_state, $object) {
+function civicrm_paragraph_optin_auth_form($form, &$form_state, $object) {
   # Fetch contact from CiviCRM API.
   try {
     civicrm_initialize();
@@ -47,7 +47,7 @@ function civicrm_paragraph_optin_form($form, &$form_state, $object) {
       '#description' => t('Select the newsletter(s) you would like to subscribe to.'),
       '#options' => $newsletters,
       '#ajax' => [
-        'callback' => 'civicrm_paragraph_optin_ajax',
+        'callback' => 'civicrm_paragraph_optin_auth_ajax',
         'wrapper' => 'subscriptions',
       ],
       '#default_value' => $default,
@@ -72,7 +72,7 @@ function civicrm_paragraph_optin_form($form, &$form_state, $object) {
 /**
  *  Form ajax submit for the paragraph opt-in form.
  */
-function civicrm_paragraph_optin_ajax(&$form, &$form_state) {
+function civicrm_paragraph_optin_auth_ajax(&$form, &$form_state) {
   # Update opt-in(s).
   foreach ($form['subscriptions']['#options'] as $key => $value) {
     if ($form['subscriptions'][$key]['#value']) {

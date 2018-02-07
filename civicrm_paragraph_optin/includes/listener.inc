@@ -13,20 +13,24 @@ function _civicrm_optin_render($output, $object) {
   $output = NULL;
   # Check if user is anonymous.
   if (user_is_anonymous()) {
-    # TODO: form for anonymous with check for anonymous groups!
-    # Display output.
+    # Fetch opt-in form.
     $output = [
       '#theme' => 'html_tag',
       '#tag' => 'div',
-      '#value' => "Opt-in: anonymous",
+      '#value' => theme('civicrm_paragraph_optin_anom', ['object' => $object]),
       '#attributes' => [
         'class' => ['civicrm_paragraph_optin'],
         'id' => 'civicrm_paragraph_optin',
       ],
+      '#attached' => [
+        'css' => [
+          drupal_get_path('module', 'civicrm_paragraph_optin') . '/css/civicrm_paragraph_optin.css',
+        ],
+      ],
     ];
   }
   else {
-    # Fetch opt-in form.
+    # Fetch alter subscriptions form.
     $output = [
       '#theme' => 'html_tag',
       '#tag' => 'div',

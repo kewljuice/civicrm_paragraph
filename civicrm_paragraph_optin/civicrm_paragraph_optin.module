@@ -16,6 +16,7 @@ module_load_include('inc', 'civicrm_paragraph_optin', 'includes/listener');
 module_load_include('inc', 'civicrm_paragraph_optin', 'includes/admin');
 
 /**
- * Include opt-in form.
+ * Include opt-in forms.
  */
-module_load_include('inc', 'civicrm_paragraph_optin', 'includes/form_optin');
+module_load_include('inc', 'civicrm_paragraph_optin', 'includes/form_optin_anom');
+module_load_include('inc', 'civicrm_paragraph_optin', 'includes/form_optin_auth');
