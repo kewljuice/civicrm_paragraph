@@ -10,3 +10,7 @@ module_load_include('inc', 'civicrm_paragraph_optin', 'includes/theme');
  */
 module_load_include('inc', 'civicrm_paragraph_optin', 'includes/listener');
 
+/**
+ * Include admin.
+ */
+module_load_include('inc', 'civicrm_paragraph_optin', 'includes/admin');
