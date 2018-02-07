@@ -21,13 +21,26 @@ function _civicrm_optin_render($output, $object) {
       '#value' => "Opt-in: anonymous",
       '#attributes' => [
         'class' => ['civicrm_paragraph_optin'],
-        'id' => 'civicrm-paragraph-vcard-optin',
+        'id' => 'civicrm_paragraph_optin',
       ],
     ];
   }
   else {
     # Fetch opt-in form.
-    $output = drupal_get_form('civicrm_paragraph_optin_form', $object);
+    $output = [
+      '#theme' => 'html_tag',
+      '#tag' => 'div',
+      '#value' => theme('civicrm_paragraph_optin_auth', ['object' => $object]),
+      '#attributes' => [
+        'class' => ['civicrm_paragraph_optin'],
+        'id' => 'civicrm_paragraph_optin',
+      ],
+      '#attached' => [
+        'css' => [
+          drupal_get_path('module', 'civicrm_paragraph_optin') . '/css/civicrm_paragraph_optin.css',
+        ],
+      ],
+    ];
   }
   # Render & return output.
   return drupal_render($output);

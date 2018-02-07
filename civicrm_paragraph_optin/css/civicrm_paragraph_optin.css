@@ -1,0 +1,23 @@
+
+.optin-civicrm .optin-item {
+    border: solid 1px #eeeeee;
+    border-left: none;
+    border-left: 3px solid #7fc858;
+    padding: 16px 16px 16px 19px;
+    position: relative;
+    z-index: 1;
+    margin: 28px 0;
+}
+
+.optin-civicrm .optin-item:first-child {
+    margin-top: 0;
+}
+
+.optin-civicrm .optin-item:last-child {
+    margin-bottom: 0;
+}
+
+.optin-civicrm .optin-item .optin-item-title {
+    font-weight: bold;
+    padding: 0 0 16px 0;
+}
