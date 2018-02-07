@@ -9,17 +9,26 @@
  * @return string
  */
 function _civicrm_optin_render($output, $object) {
-  # Display according to settings.
+  # Output
   $output = NULL;
-  $output = [
-    '#theme' => 'html_tag',
-    '#tag' => 'div',
-    '#value' => "Opt-in",
-    '#attributes' => [
-      'class' => ['civicrm_paragraph_optin'],
-      'id' => 'civicrm-paragraph-vcard-optin',
-    ],
-  ];
+  # Check if user is anonymous.
+  if (user_is_anonymous()) {
+    # TODO: form for anonymous with check for anonymous groups!
+    # Display output.
+    $output = [
+      '#theme' => 'html_tag',
+      '#tag' => 'div',
+      '#value' => "Opt-in: anonymous",
+      '#attributes' => [
+        'class' => ['civicrm_paragraph_optin'],
+        'id' => 'civicrm-paragraph-vcard-optin',
+      ],
+    ];
+  }
+  else {
+    # Fetch opt-in form.
+    $output = drupal_get_form('civicrm_paragraph_optin_form', $object);
+  }
   # Render & return output.
   return drupal_render($output);
 }

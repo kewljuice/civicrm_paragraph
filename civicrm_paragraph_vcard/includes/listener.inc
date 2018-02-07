@@ -28,7 +28,7 @@ function _civicrm_vcard_render($output, $object) {
         'id' => "user_contact_id",
       ]);
     } catch (Exception $e) {
-      // watchdog('_civicrm_vcard_render', $e->getMessage());
+      // watchdog('_civicrm_paragraphs', $e->getMessage());
     }
     if ($user_contact['contact_id']) {
       $cid = $user_contact['contact_id'];

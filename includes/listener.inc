@@ -18,7 +18,7 @@ function _civicrm_hello_render($output, $object) {
       'id' => "user_contact_id",
     ]);
   } catch (Exception $e) {
-    // watchdog('_civicrm_hello_render', $e->getMessage());
+    // watchdog('_civicrm_paragraphs', $e->getMessage());
   }
   # Display if properties exists.
   if (isset($contact['values'][0]['contact_id'])) {

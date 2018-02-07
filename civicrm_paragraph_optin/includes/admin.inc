@@ -39,7 +39,7 @@ function civicrm_paragraph_optin_admin_form($form, &$form_state) {
   ];
   # Fetch & loop options.
   $options = variable_get('civicrm_paragraph_optin');
-  # Check for options via CiviCRM api.
+  # Check for options via CiviCRM API.
   $options = civicrm_paragraph_optin_update_list($options);
   # Fetch & loop options.
   foreach ($options as $key => $value) {
