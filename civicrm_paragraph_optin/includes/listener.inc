@@ -13,21 +13,31 @@ function _civicrm_optin_render($output, $object) {
   $output = NULL;
   # Check if user is anonymous.
   if (user_is_anonymous()) {
-    # Fetch opt-in form.
-    $output = [
-      '#theme' => 'html_tag',
-      '#tag' => 'div',
-      '#value' => theme('civicrm_paragraph_optin_anom', ['object' => $object]),
-      '#attributes' => [
-        'class' => ['civicrm_paragraph_optin'],
-        'id' => 'civicrm_paragraph_optin',
-      ],
-      '#attached' => [
-        'css' => [
-          drupal_get_path('module', 'civicrm_paragraph_optin') . '/css/civicrm_paragraph_optin.css',
+    # Check if there are anonymous groups set.
+    $count = 0;
+    $list = variable_get('civicrm_paragraph_optin');
+    foreach ($list as $key => $value) {
+      if ($value['anonymous']) {
+        $count++;
+      }
+    }
+    if ($count > 0) {
+      # Fetch opt-in form.
+      $output = [
+        '#theme' => 'html_tag',
+        '#tag' => 'div',
+        '#value' => theme('civicrm_paragraph_optin_anom', ['object' => $object]),
+        '#attributes' => [
+          'class' => ['civicrm_paragraph_optin'],
+          'id' => 'civicrm_paragraph_optin',
         ],
-      ],
-    ];
+        '#attached' => [
+          'css' => [
+            drupal_get_path('module', 'civicrm_paragraph_optin') . '/css/civicrm_paragraph_optin.css',
+          ],
+        ],
+      ];
+    }
   }
   else {
     # Fetch alter subscriptions form.
